@@ -52,20 +52,13 @@ void loop() {
 
   setSharp();
 
-
-
-  Serial.print(" || Complementary Y: "); Serial.print(pitch); Serial.println("\t");
-  delay(300);
-
-
-
   if (lerBtnSeguidor() == 1) {
-    digitalWrite(ledAzul, HIGH);
+    digitalWrite(ledVerde, HIGH);
     delay(1000);
     // pararGarra(true);
     Seguidor(true);
     delay(300);
-    digitalWrite(ledAzul, LOW);
+    digitalWrite(ledVerde, LOW);
   }
 
   if (lerBtnDesafio() == 1) {
@@ -93,8 +86,10 @@ void loop() {
   //    }
 
   //Direita para esquerda
-  //    lerTodosSensores();
-  //    delay(300);
+      lerTodosSensores();
+      delay(300);
+
+            //PID(0.15, KI, 0, 200, setPoint);
   //  PID(KP, KI, KD, forcaPID, setPoint);
   //  Serial.println("***** PID *****");
   //      curva90GrausDireitaObjeto();

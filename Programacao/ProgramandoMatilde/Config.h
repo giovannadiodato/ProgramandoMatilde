@@ -194,7 +194,7 @@ int lastError = 0;
 /** Quanto o robô vê no preto e no branco (+-) **/
 int preto = 800;
 int branco = 550;
-int silverTape = 800;
+int silverTape = 600;
 /************************************************/
 
 /*** Forças padrão ***/
