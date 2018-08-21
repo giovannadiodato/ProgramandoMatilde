@@ -1,3 +1,14 @@
+/**
+   Programação para o torneio OBR 2018
+   Desenvolvido por Giovanna Diodato, Rodrigo Cavalcanti, Fernanda Marcato, Matheus Pires;
+   Equipe Robonaticos;
+   Apoio: Sesi São Paulo
+   http://facebook.com/robonaticos
+
+   posicao servo fechar(105)
+   posicao servo abrir(180)
+*/
+
 #include <QTRSensors.h>       //Biblioteca utilizada pelo sensor QTR
 #include <Encoder.h>          //Biblioteca utilizada para mecher os motores com o encoder
 #include <Servo.h>
@@ -45,6 +56,8 @@ void setup() {
 
   while (i2cWrite(0x19, i2cData, 4, false)); // Write to all four registers at once
   while (i2cWriteE(0x6B, 0x01, true));
+  
+  servoCacamba.write(105);
   /***********************************************************/
 }
 
@@ -62,9 +75,11 @@ void loop() {
   }
 
   if (lerBtnDesafio() == 1) {
-    digitalWrite(ledVerde, HIGH);
-
-    digitalWrite(ledVerde, LOW);
+    digitalWrite(ledEsquerda, HIGH);
+    delay(1000);
+    terceiroSalao(true);
+    delay(300);
+    digitalWrite(ledEsquerda, LOW);
   }
 
   if (lerBtnRampa() == 1) {
@@ -88,6 +103,9 @@ void loop() {
   //Direita para esquerda
       lerTodosSensores();
       delay(300);
+
+//       > 180
+//       > 278
 
             //PID(0.15, KI, 0, 200, setPoint);
   //  PID(KP, KI, KD, forcaPID, setPoint);
