@@ -167,8 +167,8 @@ void curva90GrausEsquerdaObjeto() {
 
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
-  while ((encoderEsquerda.read() >= -1150) && (encoderDireita.read() <= 1150)) {
-    mover(-140, 140);
+  while ((encoderEsquerda.read() >= -1200) && (encoderDireita.read() <= 1200)) {
+    mover(-120, 120);
   }
   pararMotores();
 }
@@ -185,7 +185,7 @@ void curva90GrausDireita() {
 
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
-  while ((encoderEsquerda.read() <= 1050) && (encoderDireita.read() >= -1050)) {
+  while ((encoderEsquerda.read() <= 1100) && (encoderDireita.read() >= -1200)) {
     mover(120, -120);
   }
   pararMotores();
@@ -203,8 +203,8 @@ void curva90GrausDireitaObjeto() {
 
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
-  while ((encoderEsquerda.read() <= 1100) && (encoderDireita.read() >= -1100)) {
-    mover(150, -150);
+  while ((encoderEsquerda.read() <= 1200) && (encoderDireita.read() >= -1200)) {
+    mover(120, -120);
   }
   pararMotores();
 }
