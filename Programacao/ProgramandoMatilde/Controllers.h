@@ -149,13 +149,13 @@ void terceiroSalao(boolean condicao) {
     //digitalWrite(ledAzul, HIGH);
     digitalWrite(ledVerde,  HIGH);
     digitalWrite(ledVermelho, HIGH);
-    analogWrite(motorGarraBaixo, 100);
-    delay(200);
+    analogWrite(motorGarraBaixo, 150);
+    delay(2000);
     analogWrite(motorGarraBaixo, 0);
     curva90GrausEsquerdaObjeto();
     mover(-100, -150);
     delay(2500);
-    frenteEncoder(1900, 90, 90);
+    frenteEncoder(2000, 90, 90);
     curva90GrausDireitaObjeto();
     mover(-100, -150);
     delay(2500);
@@ -164,7 +164,7 @@ void terceiroSalao(boolean condicao) {
 
     aux = 1;
     while (aux == 1) {
-      mover(80, 80);
+      mover(80, 85);
       if (verificaParede() == true) {
         trasEncoder(100, 100, 100);
         frenteEncoder(100, 200, 200);
@@ -173,13 +173,16 @@ void terceiroSalao(boolean condicao) {
         trasEncoder(500, 90, 90);
         travarMotores();
         delay(1000);
-        analogWrite(motorGarraCima, 100);
-        delay(1000);
+        analogWrite(motorGarraCima, 180);
+        delay(2000);
         analogWrite(motorGarraCima, 0);
         travarMotores();
         delay(1000);
         if (verificaVitima() == true) {
           sinalizar();
+          analogWrite(motorGarraBaixo, 150);
+          delay(2000);
+          analogWrite(motorGarraBaixo, 0);
           curva90GrausEsquerdaObjeto();
           travarMotores();
           delay(1000);
@@ -198,16 +201,18 @@ void terceiroSalao(boolean condicao) {
             delay(1000);
             frenteEncoder(100, 100, 100);
             trasEncoder(100, 200, 200);
+            delay(1000);
             frenteEncoder(100, 100, 100);
             trasEncoder(100, 200, 200);
+            delay(1000);
             servoCacamba.write(105);
             //
             frenteEncoder(100, 100, 100);
             curva45GrausDireita();
             //Ir até o lugar da segunda ronda
-            frenteEncoder(1300, 100, 100);
-            curva90GrausEsquerdaObjeto();
-            mover(-90, -90);
+            frenteEncoder(2200, 100, 100);
+            curva90GrausEsquerdaRodrigo();
+            mover(-90, -100);
             delay(2000);
             travarMotores();
             delay(1000);
@@ -230,8 +235,10 @@ void terceiroSalao(boolean condicao) {
               delay(1000);
               frenteEncoder(100, 100, 100);
               trasEncoder(100, 200, 200);
+              delay(1000);
               frenteEncoder(100, 100, 100);
               trasEncoder(100, 200, 200);
+              delay(1000);
               servoCacamba.write(105);
               curva45GrausEsquerda();
               frenteEncoder(200, 100, 100);
@@ -241,7 +248,56 @@ void terceiroSalao(boolean condicao) {
               s = 1;
               aux = 2;
             } else {
-              //vai até a ultima base
+              curva90GrausDireitaObjeto();
+              mover(-90, -90);
+              delay(2000);
+              while (verificaParede() == false) {
+                mover(80, 85);
+              }
+              digitalWrite(ledDireita, HIGH);
+              trasEncoder(100, 100, 100);
+              frenteEncoder(100, 200, 200);
+              trasEncoder(100, 100, 100);
+              frenteEncoder(100, 200, 200);
+              trasEncoder(500, 90, 90);
+              travarMotores();
+              delay(1000);
+              analogWrite(motorGarraCima, 180);
+              delay(2000);
+              analogWrite(motorGarraCima, 0);
+              curva90GrausEsquerdaObjeto();
+              travarMotores();
+              delay(1000);
+              curva45GrausEsquerda();
+              mover(-90, -90);
+              delay(2000);
+              servoCacamba.write(180);
+              travarMotores();
+              delay(1000);
+              frenteEncoder(100, 100, 100);
+              trasEncoder(100, 200, 200);
+              delay(1000);
+              frenteEncoder(100, 100, 100);
+              trasEncoder(100, 200, 200);
+              delay(1000);
+              servoCacamba.write(105);
+              analogWrite(motorGarraBaixo, 180);
+              delay(3000);
+              analogWrite(motorGarraBaixo, 0);
+              travarMotores();
+              delay(1000);
+              frenteEncoder(200, 90, 90);
+              curva45GrausDireita();
+              frenteEncoder(200, 90, 90);
+              curva90GrausEsquerdaObjeto();
+              mover(-90, -90);
+              delay(2000);
+              frenteEncoder(200, 90, 90);
+              curva90GrausDireitaObjeto();
+              travarMotores();
+              delay(1000);
+              t = 1;
+              aux = 3;
             }
           }
         } else {
@@ -254,7 +310,7 @@ void terceiroSalao(boolean condicao) {
           delay(1000);
           if (verificaBase() == true) {
             digitalWrite(ledDireita, HIGH);
-            frenteEncoder(1200, 90, 90);
+            frenteEncoder(2200, 90, 90);
             travarMotores();
             delay(1000);
             curva90GrausEsquerdaObjeto();
@@ -263,7 +319,7 @@ void terceiroSalao(boolean condicao) {
             p = 1;
             aux = 2;
           } else {
-            frenteEncoder(1200, 90, 90);
+            frenteEncoder(1100, 90, 90);
             travarMotores();
             delay(1000);
             curva90GrausEsquerdaObjeto();
@@ -287,6 +343,162 @@ void terceiroSalao(boolean condicao) {
               aux = 2;
             }
           }
+        }
+      }
+    }
+
+    while (aux = 2) {
+      mover(80, 85);
+      if (verificaParede() == true) {
+        trasEncoder(100, 100, 100);
+        frenteEncoder(100, 200, 200);
+        trasEncoder(100, 100, 100);
+        frenteEncoder(100, 200, 200);
+        trasEncoder(500, 90, 90);
+        travarMotores();
+        delay(1000);
+        analogWrite(motorGarraCima, 180);
+        delay(2000);
+        analogWrite(motorGarraCima, 0);
+        travarMotores();
+        delay(1000);
+        if (verificaVitima() == true) {
+          if ((p == 1) && (s == 0) && (t == 0)) {
+            sinalizar();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            curva90GrausDireitaObjeto();
+            curva90GrausDireitaObjeto();
+            mover(-90, -100);
+            delay(2000);
+            while (verificaParede() == false) {
+              mover(80, 85);
+            }
+            analogWrite(motorGarraCima, 180);
+            delay(2000);
+            analogWrite(motorGarraCima, 0);
+            trasEncoder(900, 90, 90); // aqui é o problema
+            curva90GrausEsquerdaRodrigo();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            travarMotores();
+            delay(1000);
+            trasEncoder(2000, 90, 90); //andarMais
+            travarMotores();
+            delay(1000);
+            curva45GrausEsquerda();
+            travarMotores();
+            delay(1000);
+            mover(-90, -90);
+            delay(2000);
+            servoCacamba.write(180);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            servoCacamba.write(105);
+            travarMotores();
+            delay(1000);
+            //comeca 3 ronda
+            frenteEncoder(200, 100, 100);
+            curva45GrausDireita();
+            while (verificaParede() == false) {
+              mover(80, 85);
+            }
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            trasEncoder(500, 90, 90);
+            travarMotores();
+            delay(1000);
+            analogWrite(motorGarraCima, 180);
+            delay(2000);
+            analogWrite(motorGarraCima, 0);
+            travarMotores();
+            delay(1000);
+            if (verificaVitima() == true) {
+              sinalizar();
+              trasEncoder(1500, 90, 90);
+              curva45GrausEsquerda();
+              travarMotores();
+              delay(1000);
+              mover(-90, -90);
+              delay(2000);
+              servoCacamba.write(180);
+              travarMotores();
+              delay(1000);
+              frenteEncoder(100, 100, 100);
+              trasEncoder(100, 200, 200);
+              delay(1000);
+              frenteEncoder(100, 100, 100);
+              trasEncoder(100, 200, 200);
+              delay(1000);
+              servoCacamba.write(105);
+              travarMotores();
+              delay(1000);
+              //resgatou a 3 vez
+              curva45GrausDireita();
+              while (verificaParede() == false) {
+                mover(80, 85);
+              }
+              trasEncoder(50, 100, 100);
+              curva90GrausEsquerdaObjeto();
+              mover(-90, -90);
+              delay(3000);
+              while (verificaParede() == false) {
+                mover(80, 85);
+              }
+              trasEncoder(200, 100, 100);
+              analogWrite(motorGarraCima, 180);
+              delay(2000);
+              analogWrite(motorGarraCima, 0);
+              if (verificaVitima() == true) {
+                sinalizar();
+                trasEncoder(100, 100, 100);
+                curva90GrausEsquerdaObjeto();
+                curva90GrausEsquerdaObjeto();
+                analogWrite(motorGarraCima, 180);
+                delay(2000);
+                analogWrite(motorGarraCima, 0);
+                while (verificaParede() == false) {
+                  mover(80, 85);
+                }
+                trasEncoder(100, 100, 100);
+                curva90GrausEsquerdaObjeto();
+                trasEncoder(2700, 100, 100);
+                curva45GrausDireita();
+                frenteEncoder(100, 100, 100);
+                trasEncoder(100, 200, 200);
+                delay(1000);
+                frenteEncoder(100, 100, 100);
+                trasEncoder(100, 200, 200);
+                delay(1000);
+              }
+            } else {
+              trasEncoder(50, 100, 100);
+              curva90GrausEsquerdaObjeto();
+              mover(-90, -90);
+              delay(3000);
+              while (verificaParede() == false) {
+                mover(80, 85);
+              }
+              trasEncoder(200, 100, 100);
+              analogWrite(motorGarraCima, 180);
+              delay(2000);
+              analogWrite(motorGarraCima, 0);
+
+            }
+          }
+        } else {
+          //if ((p == 1) && (s == 0) && (t == 0)) {
+          //}
         }
       }
     }

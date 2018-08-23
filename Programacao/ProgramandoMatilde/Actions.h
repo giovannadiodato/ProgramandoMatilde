@@ -174,6 +174,24 @@ void curva90GrausEsquerdaObjeto() {
 }
 /*****************************************************************/
 
+/****** 90 GRAUS ESQUERDA OBJETO ******/
+void curva90GrausEsquerdaRodrigo() {
+
+  pararMotores();
+  delay(250);
+
+  //Deixa a leitura do encoder dos motores em 0
+  encoderEsquerda.write(0); encoderDireita.write(0);
+
+  //Enquanto a leitura dos encoders ser menor do que o
+  //valor passado, continua fazendo a curva
+  while ((encoderEsquerda.read() >= -1100) && (encoderDireita.read() <= 1100)) {
+    mover(-120, 120);
+  }
+  pararMotores();
+}
+/*****************************************************************/
+
 /****** 90 GRAUS DIREITA ******/
 void curva90GrausDireita() {
 
