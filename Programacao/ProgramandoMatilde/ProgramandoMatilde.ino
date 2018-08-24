@@ -66,24 +66,28 @@ void loop() {
   setSharp();
 
   if (lerBtnSeguidor() == 1) {
-    digitalWrite(ledVerde, HIGH);
+    digitalWrite(ledAzul, HIGH);
     delay(1000);
     // pararGarra(true);
     Seguidor(true);
     delay(300);
-    digitalWrite(ledVerde, LOW);
+    digitalWrite(ledAzul, LOW);
   }
 
   if (lerBtnDesafio() == 1) {
-    digitalWrite(ledEsquerda, HIGH);
+    digitalWrite(ledVerde, HIGH);
     delay(1000);
     terceiroSalao(true);
     delay(300);
-    digitalWrite(ledEsquerda, LOW);
+    digitalWrite(ledVerde, LOW);
   }
 
   if (lerBtnRampa() == 1) {
-
+    digitalWrite(ledVermelho, HIGH);
+    delay(1000);
+    //terceiroSalao(true);
+    delay(300);
+    digitalWrite(ledVermelho, LOW);
   }
 
   //Esquerda
