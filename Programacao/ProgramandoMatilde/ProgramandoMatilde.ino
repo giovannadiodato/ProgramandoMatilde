@@ -34,6 +34,8 @@ void setup() {
     analogWrite(motorGarraCima, 150);
   }
   analogWrite(motorGarraCima, 0);
+  
+  
 
   //  analogWrite(motorGarraCima, 150);
   //  delay(200);
@@ -43,7 +45,7 @@ void setup() {
   /*** Todas essas funções se encontram na aba 'Actions.h' ***/
   alertaDeInicio();
   delay(500);
-  // calibrarArray();
+  //calibrarArray();
 
   Wire.begin();
   TWBR = ((F_CPU / 400000L) - 16) / 2; // Set I2C frequency to 400kHz
@@ -75,11 +77,11 @@ void loop() {
   }
 
   if (lerBtnDesafio() == 1) {
-    digitalWrite(ledVerde, HIGH);
+    //digitalWrite(ledVerde, HIGH);
     delay(1000);
     terceiroSalao(true);
     delay(300);
-    digitalWrite(ledVerde, LOW);
+    //digitalWrite(ledVerde, LOW);
   }
 
   if (lerBtnRampa() == 1) {
