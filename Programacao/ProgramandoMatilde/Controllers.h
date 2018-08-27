@@ -1,3 +1,4 @@
+
 /**
    Programação para o torneio OBR 2018
    Desenvolvido por Giovanna Diodato, Rodrigo Cavalcanti, Fernanda Marcato, Matheus Pires;
@@ -91,12 +92,6 @@ boolean verificaObjeto() {
   }
 }
 
-boolean verificaRedutor() {
-  if (lerBtnRedutor() == 1) {
-    return true;
-  }
-  return false;
-}
 
 boolean verificaSilverTap() {
   if (lerQTR(1) >= silverTape && lerQTR(2) >= silverTape && lerQTR(3) >= silverTape && lerQTR(4) >= silverTape && lerQTR(5) >= silverTape && lerQTR(6) >= silverTape && lerQTR(7) >= silverTape && lerQTR(8) >= silverTape) {
@@ -108,14 +103,14 @@ boolean verificaSilverTap() {
 
 /********* TERCEIRO SALAO ************/
 boolean verificaParede() {
-  if (lerBtnFrenteDireita() == 0 || lerBtnFrenteEsquerda() == 0) {
+  if ((lerBtnFrenteDireita() == 0) || (lerBtnFrenteEsquerda() == 0)) {
     return true;
   }
   return false;
 }
 
 boolean verificaBase() {
-  if ((lerSharp(1) > 155) && (lerSharp(2) > 200)) {
+  if ((lerSharp(1) > 150) && (lerSharp(2) > 230)) {
     return true;
   }
   return false;
@@ -138,6 +133,13 @@ boolean verificaVitima() {
   }
 }
 
+boolean verificaRedutor() {
+  if (lerBtnRedutor() == 0) {
+    return true;
+  }
+  return false;
+}
+
 int p = 0;
 int s = 0;
 int t = 0;
@@ -145,6 +147,8 @@ int aux = 0;
 
 void terceiroSalao(boolean condicao) {
   while (condicao == true) {
+    servoCacamba.attach(7);
+    servoCacamba.write(105);
     digitalWrite(ledDireita, LOW);
     digitalWrite(ledEsquerda, LOW);
     digitalWrite(ledAzul, HIGH);
@@ -164,7 +168,7 @@ void terceiroSalao(boolean condicao) {
 
     aux = 1;
     while (aux == 1) {
-      mover(80, 85);
+      mover(80, 90);
       if (verificaParede() == true) {
         trasEncoder(100, 100, 100);
         frenteEncoder(100, 200, 200);
@@ -190,7 +194,9 @@ void terceiroSalao(boolean condicao) {
           travarMotores();
           delay(1000);
           if (verificaBase() == true) {
-            //trasEncoder(1500, 90);
+            digitalWrite(ledEsquerda, HIGH);
+            delay(700);
+            digitalWrite(ledEsquerda, LOW);
             curva45GrausEsquerda();
             travarMotores();
             delay(1000);
@@ -210,7 +216,7 @@ void terceiroSalao(boolean condicao) {
             frenteEncoder(100, 100, 100);
             curva45GrausDireita();
             while (verificaParede() == false) {
-              mover(80, 85);
+              mover(80, 90);
             }
             trasEncoder(100, 100, 100);
             frenteEncoder(100, 200, 200);
@@ -267,12 +273,17 @@ void terceiroSalao(boolean condicao) {
               aux = 2;
             }
           } else {
-            frenteEncoder(1200, 90, 90);
+            frenteEncoder(1300, 90, 90);
             travarMotores();
             delay(1000);
             curva90GrausEsquerdaObjeto();
             curva90GrausEsquerdaObjeto();
+            travarMotores();
+            delay(1000);
             if (verificaBase() == true) {
+              digitalWrite(ledDireita, HIGH);
+              delay(700);
+              digitalWrite(ledDireita, LOW);
               curva45GrausDireita();
               travarMotores();
               delay(1000);
@@ -289,7 +300,7 @@ void terceiroSalao(boolean condicao) {
               delay(1000);
               servoCacamba.write(105);
               curva45GrausEsquerda();
-              frenteEncoder(200, 100, 100);
+              frenteEncoder(300, 100, 100);
               curva90GrausDireitaObjeto();
               mover(-90, -90);
               delay(2000);
@@ -300,7 +311,7 @@ void terceiroSalao(boolean condicao) {
               mover(-90, -90);
               delay(2000);
               while (verificaParede() == false) {
-                mover(80, 85);
+                mover(80, 90);
               }
               digitalWrite(ledDireita, HIGH);
               trasEncoder(100, 100, 100);
@@ -362,7 +373,7 @@ void terceiroSalao(boolean condicao) {
             digitalWrite(ledDireita, LOW);
             //frenteEncoder(2200, 90, 90);
             while (verificaParede() == false) {
-              mover(80, 85);
+              mover(80, 90);
             }
             trasEncoder(100, 100, 100);
             frenteEncoder(100, 200, 200);
@@ -421,7 +432,7 @@ void terceiroSalao(boolean condicao) {
               aux = 2;
             }
           } else {
-            frenteEncoder(700, 90, 90);
+            frenteEncoder(900, 90, 90);
             travarMotores();
             delay(1000);
             curva90GrausEsquerdaObjeto();
@@ -430,8 +441,10 @@ void terceiroSalao(boolean condicao) {
             delay(1000);
             if (verificaBase() == true) {
               digitalWrite(ledDireita, HIGH);
+              delay(700);
+              digitalWrite(ledDireita, LOW);
               curva90GrausDireitaObjeto();
-              mover(-90, -90);
+              mover(-90, -100);
               delay(2000);
               s = 1;
               aux = 2;
@@ -466,55 +479,228 @@ void terceiroSalao(boolean condicao) {
         analogWrite(motorGarraCima, 0);
         delay(1000);
         if ((p == 0) && (s == 1) && (t == 0)) {
+          frenteEncoder(400, 90, 90);
+          curva90GrausDireitaObjeto();
           analogWrite(motorGarraBaixo, 150);
           delay(2000);
           analogWrite(motorGarraBaixo, 0);
-          curva90GrausDireitaObjeto();
           while (verificaParede() == false) {
-            mover(80, 85);
+            mover(80, 90);
           }
           trasEncoder(100, 100, 100);
           frenteEncoder(100, 200, 200);
           trasEncoder(100, 100, 100);
           frenteEncoder(100, 200, 200);
           trasEncoder(300, 90, 90);
-          curva90GrausDireitaObjeto();
           while (lerBtnGarraParar() == 1) {
             analogWrite(motorGarraCima, 150);
           }
           analogWrite(motorGarraCima, 0);
-          delay(500);
-          mover(-90, -90);
-          delay(2000);
-          analogWrite(motorGarraBaixo, 150);
-          delay(2000);
-          analogWrite(motorGarraBaixo, 0);
-          frenteEncoder(2900, 90, 90);
-          curva45GrausEsquerda();
-          trasEncoder(100, 100, 100);
-          frenteEncoder(100, 200, 200);
-          trasEncoder(100, 100, 100);
-          frenteEncoder(100, 200, 200);
-          trasEncoder(600, 90, 90);
-          curva45GrausDireita();
-          curva90GrausDireitaObjeto();
-          curva90GrausDireitaObjeto();
-          curva45GrausEsquerda();
-          mover(-90, -90);
-          delay(2000);
-          sinalizar();
-          servoCacamba.write(180);
-          travarMotores();
           delay(1000);
-          frenteEncoder(100, 100, 100);
-          trasEncoder(100, 200, 200);
-          delay(1000);
-          frenteEncoder(100, 100, 100);
-          trasEncoder(100, 200, 200);
-          delay(1000);
-          servoCacamba.write(105);
-          travarMotores();
-          delay(1000);
+          if (verificaVitima() == true) {
+            sinalizar();
+            trasEncoder(600, 90, 90);
+            curva90GrausEsquerdaObjeto();
+            trasEncoder(2600, 100, 115);
+            curva45GrausEsquerda();
+            mover(-90, -90);
+            delay(2000);
+            servoCacamba.write(180);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            servoCacamba.write(105);
+            //
+            frenteEncoder(500, 100, 100);
+            curva45GrausEsquerda();
+            mover(-90, -90);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(300, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            delay(1000);
+            curva90GrausEsquerdaObjeto();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(200, 100, 100);
+            frenteEncoder(200, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(600, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            delay(1000);
+            curva90GrausDireitaObjeto();
+            trasEncoder(300, 200, 200);
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            mover(90, 90);
+            delay(2000);
+            trasEncoder(3000, 90, 90);
+            curva45GrausDireita();
+            mover(-90, -90);
+            delay(2000);
+            servoCacamba.write(180);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            servoCacamba.write(105);
+          } else {
+            curva90GrausDireitaObjeto();
+            curva90GrausDireitaObjeto();
+            mover(-90, -90);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(200, 100, 100);
+            frenteEncoder(200, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(600, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            delay(1000);
+            //frenteEncoder(200, 100, 100);
+            curva90GrausEsquerdaObjeto();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(200, 100, 100);
+            frenteEncoder(200, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(600, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            delay(1000);
+            trasEncoder(200, 100, 100);
+            curva90GrausDireitaObjeto();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            mover(90, 90);
+            delay(2000);
+            trasEncoder(3000, 100, 100);
+            curva45GrausDireita();
+            mover(-90, -90);
+            delay(2000);
+            servoCacamba.write(180);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            servoCacamba.write(105);
+            travarMotores();
+            delay(200000);
+            //            frenteEncoder(400, 90, 90);
+            //            curva90GrausDireitaObjeto();
+            //            analogWrite(motorGarraBaixo, 150);
+            //            delay(2000);
+            //            analogWrite(motorGarraBaixo, 0);
+            //            mover(-90, -90);
+            //            delay(2000);
+            //            frenteEncoder(2700, 80, 80);
+            //            curva90GrausDireitaObjeto();
+            //            mover(-90, -90);
+            //            delay(2000);
+            //            while (verificaParede() == false) {
+            //              mover(80, 90);
+            //            }
+            //            trasEncoder(100, 100, 100);
+            //            frenteEncoder(100, 200, 200);
+            //            trasEncoder(100, 100, 100);
+            //            frenteEncoder(100, 200, 200);
+            //            trasEncoder(300, 90, 90);
+            //            while (lerBtnGarraParar() == 1) {
+            //              analogWrite(motorGarraCima, 150);
+            //            }
+            //            analogWrite(motorGarraCima, 0);
+            //            delay(1000);
+            //            frenteEncoder(400, 90, 90);
+            //            curva90GrausEsquerdaObjeto();
+            //            analogWrite(motorGarraBaixo, 150);
+            //            delay(2000);
+            //            analogWrite(motorGarraBaixo, 0);
+            //            while (verificaParede() == false) {
+            //              mover(80, 90);
+            //            }
+            //            travarMotores();
+            //            delay(200000000000000);
+          }
+          //          curva45GrausEsquerda();
+          //          trasEncoder(100, 100, 100);
+          //          frenteEncoder(300, 200, 200);
+          //          trasEncoder(100, 100, 100);
+          //          frenteEncoder(300, 200, 200);
+          //          trasEncoder(600, 90, 90);
+          //          while (lerBtnGarraParar() == 1) {
+          //            analogWrite(motorGarraCima, 150);
+          //          }
+          //          analogWrite(motorGarraCima, 0);
+          //          delay(1000);
+          //          curva45GrausDireita();
+          //          curva90GrausDireitaObjeto();
+          //          curva90GrausDireitaObjeto();
+          //          curva45GrausEsquerda();
+          //          mover(-90, -90);
+          //          delay(2000);
+          //          sinalizar();
+          //          servoCacamba.write(180);
+          //          travarMotores();
+          //          delay(1000);
+          //          frenteEncoder(100, 100, 100);
+          //          trasEncoder(100, 200, 200);
+          //          delay(1000);
+          //          frenteEncoder(100, 100, 100);
+          //          trasEncoder(100, 200, 200);
+          //          delay(1000);
+          //          servoCacamba.write(105);
+          //          travarMotores();
+          //          delay(1000);
 
         }
         if (verificaVitima() == true) {
@@ -528,7 +714,7 @@ void terceiroSalao(boolean condicao) {
             mover(-90, -100);
             delay(2000);
             while (verificaParede() == false) {
-              mover(80, 85);
+              mover(80, 90);
             }
             trasEncoder(100, 100, 100);
             frenteEncoder(100, 200, 200);
@@ -568,13 +754,13 @@ void terceiroSalao(boolean condicao) {
           }
         } else {
           if ((p == 1) && (s == 0) && (t == 0)) {
-            frenteEncoder(400, 100, 100);
+            frenteEncoder(400, 90, 90);
             curva90GrausDireitaObjeto();
             analogWrite(motorGarraBaixo, 180);
             delay(2000);
             analogWrite(motorGarraBaixo, 0);
             while (verificaParede() == false) {
-              mover(80, 85);
+              mover(80, 90);
             }
             trasEncoder(100, 100, 100);
             frenteEncoder(100, 200, 200);
@@ -594,7 +780,7 @@ void terceiroSalao(boolean condicao) {
             delay(2000);
             analogWrite(motorGarraBaixo, 0);
             while (verificaParede() == false) {
-              mover(80, 85);
+              mover(80, 90);
             }
             trasEncoder(100, 100, 100);
             frenteEncoder(100, 200, 200);
@@ -684,18 +870,18 @@ void Seguidor(boolean condicao) {
             gap(salaoRampa);
           }
         }
-        //        if (verificaRedutorRampa() == true) {
-        //          digitalWrite(ledAzul, LOW);
-        //          digitalWrite(ledVermelho, HIGH);
-        //          int b = 1;
-        //          mover(200, 230);
-        //          delay(600);
-        //          b = 0;
-        //          digitalWrite(ledVermelho, LOW);
-        //          digitalWrite(ledAzul, HIGH);
-        //        } else {
-        //          PID(KP, KI, KD, forcaPID, setPoint);
-        //        }
+        if (verificaRedutor() == true) {
+          digitalWrite(ledAzul, LOW);
+          digitalWrite(ledVermelho, HIGH);
+          int b = 1;
+          mover(200, 230);
+          delay(2000);
+          b = 0;
+          digitalWrite(ledVermelho, LOW);
+          digitalWrite(ledAzul, HIGH);
+        } else {
+          PID(KP, KI, KD, forcaPID, setPoint);
+        }
       }
 
       frenteEncoder(1700, 100, 100);

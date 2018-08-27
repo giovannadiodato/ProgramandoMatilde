@@ -168,7 +168,7 @@ void curva90GrausEsquerdaObjeto() {
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
   while ((encoderEsquerda.read() >= -1200) && (encoderDireita.read() <= 1200)) {
-    mover(-120, 120);
+    mover(-130, 140);
   }
   pararMotores();
 }
@@ -222,7 +222,7 @@ void curva90GrausDireitaObjeto() {
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
   while ((encoderEsquerda.read() <= 1200) && (encoderDireita.read() >= -1200)) {
-    mover(120, -120);
+    mover(120, -130);
   }
   pararMotores();
 }
@@ -325,7 +325,7 @@ void gap(int estado) {
   if (estado == salaoPrincipal) {
     mover(forcaBaixa, forcaBaixa);
   } else if (estado == salaoRampa) {
-    mover(forcaRampa, forcaRampa);
+    mover(230, 230);
   }
 }
 /*****************************************************************/
@@ -361,8 +361,8 @@ void curva45GrausDireita() {
 
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
-  while ((encoderEsquerda.read() <= 525) && (encoderDireita.read() >= -525)) {
-    mover(120, -170);
+  while ((encoderEsquerda.read() <= 550) && (encoderDireita.read() >= -550)) {
+    mover(120, -130);
   }
   pararMotores();
 }
@@ -376,8 +376,8 @@ void curva45GrausEsquerda() {
 
   //Enquanto a leitura dos encoders ser menor do que o
   //valor passado, continua fazendo a curva
-  while ((encoderEsquerda.read() >= -600) && (encoderDireita.read() <= 600)) {
-    mover(-120, 170);
+  while ((encoderEsquerda.read() >= -565) && (encoderDireita.read() <= 565)) {
+    mover(-120, 130);
   }
   travarMotores();
 }

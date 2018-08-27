@@ -15,9 +15,10 @@ int btnDesafio = 4;
 int btnRampa = 5;
 int btnExtra = 6;
 int btnGarraParar = 49; //Ao contrario
-int btnRedutor = 47;
+//int btnRedutor = 47;
 int btnFrenteDireita = 46;
 int btnFrenteEsquerda = 42;
+int btnRedutor = 42;
 
 //Método para ligar os botões
 void ligarBotoes() {
@@ -29,6 +30,7 @@ void ligarBotoes() {
   pinMode(btnRedutor, INPUT_PULLUP); 
   pinMode(btnFrenteDireita, INPUT_PULLUP); 
   pinMode(btnFrenteEsquerda, INPUT_PULLUP); 
+  pinMode(btnRedutor, INPUT_PULLUP); 
 }
 
 /********************** LEDs **********************/
@@ -201,7 +203,7 @@ int silverTape = 600;
 int forca = 110;
 int forcaPID = 80;
 int forcaBaixa = 70;
-int forcaRampa = 200;
+int forcaRampa = 230;
 int forcaRedutor = 200;
 /*********************/
 

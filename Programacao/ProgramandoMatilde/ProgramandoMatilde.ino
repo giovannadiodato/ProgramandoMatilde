@@ -29,7 +29,6 @@ void setup() {
   ligarLeds();
   ligarBotoes();
   ligarSharps();
-  servoCacamba.attach(7);
   while (lerBtnGarraParar() == 1) {
     analogWrite(motorGarraCima, 150);
   }
@@ -45,7 +44,7 @@ void setup() {
   /*** Todas essas funções se encontram na aba 'Actions.h' ***/
   alertaDeInicio();
   delay(500);
-  //calibrarArray();
+  calibrarArray();
 
   Wire.begin();
   TWBR = ((F_CPU / 400000L) - 16) / 2; // Set I2C frequency to 400kHz
@@ -59,7 +58,7 @@ void setup() {
   while (i2cWrite(0x19, i2cData, 4, false)); // Write to all four registers at once
   while (i2cWriteE(0x6B, 0x01, true));
 
-  servoCacamba.write(105);
+  
   /***********************************************************/
 }
 
@@ -116,9 +115,9 @@ void loop() {
   //PID(0.15, KI, 0, 200, setPoint);
   //  PID(KP, KI, KD, forcaPID, setPoint);
   //  Serial.println("***** PID *****");
-  //        curva90GrausEsquerdaObjeto();
-  //        travarMotores();
-  //        delay(2000);
+//          curva90GrausDireitaObjeto();
+//          travarMotores();
+//          delay(2000);
 
 
 }

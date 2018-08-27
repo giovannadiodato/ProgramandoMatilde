@@ -61,9 +61,6 @@ int lerBtnExtra() {
 int lerBtnGarraParar() {
   return digitalRead(btnGarraParar);
 }
-int lerBtnRedutor() {
-  return digitalRead(btnRedutor);
-}
 
 int lerBtnFrenteDireita() {
   return digitalRead(btnFrenteDireita);
@@ -71,6 +68,10 @@ int lerBtnFrenteDireita() {
 
 int lerBtnFrenteEsquerda() {
   return digitalRead(btnFrenteEsquerda);
+}
+
+int lerBtnRedutor() {
+  return digitalRead(btnRedutor);
 }
 
 
