@@ -58,7 +58,7 @@ boolean verificaVerdeEsquerda() {
 
   green_color = map(green_color, 30, 90, 255, 0);
 
-  if ((green_color < -650) && (green_color < -250)) {
+  if (green_color < -400) {
     return true;
   } else {
     return false;
@@ -74,7 +74,7 @@ boolean verificaVerdeDireita() {
 
   green_color = map(green_color, 30, 90, 255, 0);
 
-  if (green_color < -700/*) && (green_color < -300)*/) {
+  if (green_color < -550/*) && (green_color < -300)*/) {
     return true;
   } else {
     return false;
@@ -92,9 +92,24 @@ boolean verificaObjeto() {
   }
 }
 
+boolean verificaSilverTap1() {
+  if (lerQTR(1) >= silverTape && lerQTR(2) >= silverTape && lerQTR(3) >= silverTape && lerQTR(4) >= silverTape && lerQTR(5) >= silverTape && lerQTR(6) >= silverTape && lerQTR(7) >= silverTape && lerQTR(8) >= silverTape) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean verificaSilverTap2() {
+  if (lerQTR(1) >= silverTape1 && lerQTR(2) >= silverTape1 && lerQTR(3) >= silverTape1 && lerQTR(4) >= silverTape1 && lerQTR(5) >= silverTape1 && lerQTR(6) >= silverTape1 && lerQTR(7) >= silverTape1 && lerQTR(8) >= silverTape1) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 boolean verificaSilverTap() {
-  if (lerQTR(1) >= silverTape && lerQTR(2) >= silverTape && lerQTR(3) >= silverTape && lerQTR(4) >= silverTape && lerQTR(5) >= silverTape && lerQTR(6) >= silverTape && lerQTR(7) >= silverTape && lerQTR(8) >= silverTape) {
+  if ((verificaSilverTap1() == true) && (verificaSilverTap2() == true)) {
     return true;
   } else {
     return false;
@@ -116,9 +131,24 @@ boolean verificaBase() {
   return false;
 }
 
+boolean verificaPitch1() {
+  if (pitch < -22){
+    return true;
+  } else {
+    return false;
+  }
+}
+
+boolean verificaPitch2() {
+  if (pitch < -40){
+    return true;
+  } else {
+    return false;
+  }
+}
 
 boolean verificaRampa() {
-  if ((pitch < -22) && (lerSharp(5) >= 324)) {
+  if ((verificaPitch1() == true) && (verificaPitch2() == true) && (lerSharp(5) >= 320)) {
     return true;
   } else {
     return false;
@@ -838,19 +868,18 @@ void Seguidor(boolean condicao) {
 
 
 
-    //pararGarra(true);
-    //    if (verificaRedutor() == true) {
-    //      digitalWrite(ledAzul, LOW);
-    //      digitalWrite(ledVermelho, HIGH);
-    //      //int b = 1;
-    //      mover(200, 200);
-    //      delay(300);
-    //      //b = 0;
-    //      digitalWrite(ledVermelho, LOW);
-    //      digitalWrite(ledAzul, HIGH);
-    //    } else {
-    //      PID(KP, KI, KD, forcaPID, setPoint);
-    //    }
+    if (verificaRedutor() == true) {
+      digitalWrite(ledAzul, LOW);
+      digitalWrite(ledVermelho, HIGH);
+      int b = 1;
+      mover(170, 180);
+      delay(300);
+      b = 0;
+      digitalWrite(ledVermelho, LOW);
+      digitalWrite(ledAzul, HIGH);
+    } else {
+      PID(KP, KI, KD, forcaPID, setPoint);
+    }
 
     if (verificaRampa() == true) {
       Serial.println("******************************* RAMPA *****************************");
@@ -874,8 +903,8 @@ void Seguidor(boolean condicao) {
           digitalWrite(ledAzul, LOW);
           digitalWrite(ledVermelho, HIGH);
           int b = 1;
-          mover(200, 230);
-          delay(2000);
+          mover(180, 220);
+          delay(900);
           b = 0;
           digitalWrite(ledVermelho, LOW);
           digitalWrite(ledAzul, HIGH);
@@ -904,42 +933,14 @@ void Seguidor(boolean condicao) {
     }
 
     if (verificaGap() == true) {
+      Serial.println("*********** GAP ************");
       digitalWrite(ledAzul, LOW);
       digitalWrite(ledDireita, HIGH);
       digitalWrite(ledEsquerda, HIGH);
       digitalWrite(ledVermelho, HIGH);
-      travarMotores();
-      delay(1000);
-      frenteEncoder(60, 80, 80);
-      curva45GrausDireita();
-      if (verificaGap() == true) {
-        curva90GrausEsquerda();
-        travarMotores();
-        delay(1000);
-        if (verificaGap() == true) {
-          curva45GrausDireita();
-          while (verificaGap() == true) {
-            gap(salaoPrincipal);
-          }
-        } else {
-          //Se ele encontrar algo fazer PID ou virar? Ir para trás?
-          curva45GrausDireita();
-          trasEncoder(200, 70, 70); // Para trás para voltar pro segue linha
-          digitalWrite(ledDireita, LOW);
-          digitalWrite(ledEsquerda, LOW);
-          digitalWrite(ledVermelho, LOW);
-          digitalWrite(ledAzul, HIGH);
-          PID(KP, KI, KD, forcaPID, setPoint);
-        }
-      } else {
-        //Se ele encontrar algo fazer PID ou virar? Ir para trás?
-        curva45GrausEsquerda();
-        trasEncoder(200, 70, 70); // Para trás para voltar pro segue linha
-        digitalWrite(ledDireita, LOW);
-        digitalWrite(ledEsquerda, LOW);
-        digitalWrite(ledVermelho, LOW);
-        digitalWrite(ledAzul, HIGH);
-        PID(KP, KI, KD, forcaPID, setPoint);
+      Serial.println("******* GAP *******");
+      while (verificaGap() == true) {
+        gap(salaoPrincipal);
       }
       digitalWrite(ledDireita, LOW);
       digitalWrite(ledEsquerda, LOW);

@@ -18,7 +18,7 @@ int btnGarraParar = 49; //Ao contrario
 //int btnRedutor = 47;
 int btnFrenteDireita = 46;
 int btnFrenteEsquerda = 42;
-int btnRedutor = 42;
+int btnRedutor = 47;
 
 //Método para ligar os botões
 void ligarBotoes() {
@@ -181,9 +181,9 @@ int i;
 int P; int I; int D; int ganho;
 double motorB; double motorC;
 
-float KP = 0.16;
+float KP = 0.15;
 float KI = 0;
-float KD = 0.34;
+float KD = 0.21;
 
 float KP_redutor = 0.2;
 float KI_redutor = 0;
@@ -194,9 +194,10 @@ int lastError = 0;
 /*********************************/
 
 /** Quanto o robô vê no preto e no branco (+-) **/
-int preto = 800;
-int branco = 550;
-int silverTape = 600;
+int preto = 750;
+int branco = 650;
+int silverTape = 700;
+int silverTape1 = 800;
 /************************************************/
 
 /*** Forças padrão ***/

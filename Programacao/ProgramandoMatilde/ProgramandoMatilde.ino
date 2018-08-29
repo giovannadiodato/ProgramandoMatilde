@@ -33,8 +33,8 @@ void setup() {
     analogWrite(motorGarraCima, 150);
   }
   analogWrite(motorGarraCima, 0);
-  
-  
+
+
 
   //  analogWrite(motorGarraCima, 150);
   //  delay(200);
@@ -58,7 +58,7 @@ void setup() {
   while (i2cWrite(0x19, i2cData, 4, false)); // Write to all four registers at once
   while (i2cWriteE(0x6B, 0x01, true));
 
-  
+
   /***********************************************************/
 }
 
@@ -91,23 +91,24 @@ void loop() {
     digitalWrite(ledVermelho, LOW);
   }
 
+
   //Esquerda
-  //    if ((green_color > -950) && (green_color < -250)) {
-  //      digitalWrite(ledDireita, HIGH);
-  //    }else{
-  //      digitalWrite(ledDireita, LOW);
-  //    }
+  //      if (green_color < -900) {
+  //        digitalWrite(ledDireita, HIGH);
+  //      }else{
+  //        digitalWrite(ledDireita, LOW);
+  //      }
 
   //Direita
-  //    if ((green_color > -1500) && (green_color < -350)) {
-  //      digitalWrite(ledDireita, HIGH);
-  //    } else {
-  //      digitalWrite(ledDireita, LOW);
-  //    }
+//      if (green_color < -900) {
+//        digitalWrite(ledDireita, HIGH);
+//      } else {
+//        digitalWrite(ledDireita, LOW);
+//      }
 
   //Direita para esquerda
-  lerTodosSensores();
-  delay(300);
+    lerTodosSensores();
+    delay(300);
 
   //       > 180
   //       > 278
@@ -115,9 +116,9 @@ void loop() {
   //PID(0.15, KI, 0, 200, setPoint);
   //  PID(KP, KI, KD, forcaPID, setPoint);
   //  Serial.println("***** PID *****");
-//          curva90GrausDireitaObjeto();
-//          travarMotores();
-//          delay(2000);
+  //          curva90GrausDireitaObjeto();
+  //          travarMotores();
+  //          delay(2000);
 
 
 }
