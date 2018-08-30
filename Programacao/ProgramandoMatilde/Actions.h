@@ -7,8 +7,8 @@
 */
 #include <Arduino.h>
 
-void mpuStart(){
-  
+void mpuStart() {
+
 }
 
 /**
@@ -282,54 +282,6 @@ void trasEncoder(int pulsos, int forcaEsquerda, int forcaDireita) {
 }
 /*****************************************************************/
 
-/****** FAZER OBJETO (ESQUERDA) ******/
-void objeto() {
-  travarMotores();
-  delay(300);
-  digitalWrite(ledAzul, LOW);
-  digitalWrite(ledVermelho, HIGH);
-  //Primeira curva
-  curva90GrausEsquerdaObjeto();
-  travarMotores();
-  delay(300);
-  //frente
-  frenteEncoder(1400, 100, 100);
-  travarMotores();
-  delay(1000);
-  //Segunda curva
-  curva90GrausDireitaObjeto();
-  travarMotores();
-  delay(1000);
-  //frente
-  frenteEncoder(2800, 100, 100);
-  travarMotores();
-  delay(1000);
-  //terceira curva
-  curva90GrausDireitaObjeto();
-  travarMotores();
-  delay(1000);
-  //frente
-  frenteEncoder(1400, 100, 100);
-  travarMotores();
-  delay(1000);
-  //Quarta curva (para seguir linha)
-  curva90GrausEsquerdaObjeto();
-  travarMotores();
-  delay(1000);
-  digitalWrite(ledVermelho, LOW);
-  digitalWrite(ledAzul, HIGH);
-}
-/*****************************************************************/
-/****** FAZER OBJETO (ESQUERDA) ******/
-void gap(int estado) {
-  if (estado == salaoPrincipal) {
-    mover(forcaBaixa, forcaBaixa);
-  } else if (estado == salaoRampa) {
-    mover(230, 230);
-  }
-}
-/*****************************************************************/
-
 /****** SINALIZAR VITIMA ******/
 void sinalizar() {
   digitalWrite(ledDireita, HIGH);
@@ -349,6 +301,88 @@ void sinalizar() {
   delay(100);
   digitalWrite(ledDireita, LOW);
   digitalWrite(ledEsquerda, LOW);
+}
+/*****************************************************************/
+
+/****** FAZER OBJETO (ESQUERDA) ******/
+void objeto(int lado) {
+  if (lado == esquerda) {
+    travarMotores();
+    delay(300);
+    digitalWrite(ledAzul, LOW);
+    digitalWrite(ledVermelho, HIGH);
+    //Primeira curva
+    curva90GrausEsquerdaObjeto();
+    travarMotores();
+    delay(300);
+    //frente
+    frenteEncoder(1400, 100, 100);
+    travarMotores();
+    delay(1000);
+    //Segunda curva
+    curva90GrausDireitaObjeto();
+    travarMotores();
+    delay(1000);
+    //frente
+    frenteEncoder(2600, 100, 100); //---------------------
+    travarMotores();
+    delay(1000);
+    //terceira curva
+    curva90GrausDireitaObjeto();
+    travarMotores();
+    delay(1000);
+    //frente
+    frenteEncoder(1250, 100, 100);
+    travarMotores();
+    delay(1000);
+    //Quarta curva (para seguir linha)
+    curva90GrausEsquerdaObjeto();
+    travarMotores();
+    delay(1000);
+    trasEncoder(250, 80, 90);
+    sinalizar();
+    digitalWrite(ledVermelho, LOW);
+    digitalWrite(ledAzul, HIGH);
+  } else if (lado == direita) {
+    digitalWrite(ledAzul, LOW);
+    digitalWrite(ledVermelho, HIGH);
+    travarMotores();
+    delay(300);
+    curva90GrausDireitaObjeto();
+    travarMotores();
+    delay(300);
+    frenteEncoder(1400, 100, 100);
+    travarMotores();
+    delay(1000);
+    curva90GrausEsquerdaObjeto();
+    travarMotores();
+    delay(1000);
+    frenteEncoder(2800, 100, 100);
+    travarMotores();
+    delay(1000);
+    curva90GrausEsquerdaObjeto();
+    travarMotores();
+    delay(1000);
+    frenteEncoder(1500, 100, 100);
+    travarMotores();
+    delay(1000);
+    curva90GrausDireitaObjeto();
+    travarMotores();
+    delay(1000);
+    trasEncoder(300, 80, 90);
+    sinalizar();
+    digitalWrite(ledVermelho, LOW);
+    digitalWrite(ledAzul, HIGH);
+  }
+}
+/*****************************************************************/
+/****** FAZER OBJETO (ESQUERDA) ******/
+void gap(int estado) {
+  if (estado == salaoPrincipal) {
+    mover(forcaBaixa, forcaBaixa);
+  } else if (estado == salaoRampa) {
+    mover(230, 230);
+  }
 }
 /*****************************************************************/
 

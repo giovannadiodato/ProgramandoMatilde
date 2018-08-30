@@ -44,7 +44,7 @@ void setup() {
   /*** Todas essas funções se encontram na aba 'Actions.h' ***/
   alertaDeInicio();
   delay(500);
-  calibrarArray();
+  //calibrarArray();
 
   Wire.begin();
   TWBR = ((F_CPU / 400000L) - 16) / 2; // Set I2C frequency to 400kHz
@@ -93,22 +93,22 @@ void loop() {
 
 
   //Esquerda
+//    if (green_color < -800) {
+//      digitalWrite(ledDireita, HIGH);
+//    } else {
+//      digitalWrite(ledDireita, LOW);
+//    }
+
+  //Direita
   //      if (green_color < -900) {
   //        digitalWrite(ledDireita, HIGH);
-  //      }else{
+  //      } else {
   //        digitalWrite(ledDireita, LOW);
   //      }
 
-  //Direita
-//      if (green_color < -900) {
-//        digitalWrite(ledDireita, HIGH);
-//      } else {
-//        digitalWrite(ledDireita, LOW);
-//      }
-
   //Direita para esquerda
-    lerTodosSensores();
-    delay(300);
+  lerTodosSensores();
+  delay(300);
 
   //       > 180
   //       > 278

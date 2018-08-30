@@ -58,7 +58,7 @@ boolean verificaVerdeEsquerda() {
 
   green_color = map(green_color, 30, 90, 255, 0);
 
-  if (green_color < -400) {
+  if (green_color < -600) {
     return true;
   } else {
     return false;
@@ -74,7 +74,7 @@ boolean verificaVerdeDireita() {
 
   green_color = map(green_color, 30, 90, 255, 0);
 
-  if (green_color < -550/*) && (green_color < -300)*/) {
+  if (green_color < -650/*) && (green_color < -300)*/) {
     return true;
   } else {
     return false;
@@ -92,24 +92,9 @@ boolean verificaObjeto() {
   }
 }
 
-boolean verificaSilverTap1() {
-  if (lerQTR(1) >= silverTape && lerQTR(2) >= silverTape && lerQTR(3) >= silverTape && lerQTR(4) >= silverTape && lerQTR(5) >= silverTape && lerQTR(6) >= silverTape && lerQTR(7) >= silverTape && lerQTR(8) >= silverTape) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-boolean verificaSilverTap2() {
-  if (lerQTR(1) >= silverTape1 && lerQTR(2) >= silverTape1 && lerQTR(3) >= silverTape1 && lerQTR(4) >= silverTape1 && lerQTR(5) >= silverTape1 && lerQTR(6) >= silverTape1 && lerQTR(7) >= silverTape1 && lerQTR(8) >= silverTape1) {
-    return true;
-  } else {
-    return false;
-  }
-}
 
 boolean verificaSilverTap() {
-  if ((verificaSilverTap1() == true) && (verificaSilverTap2() == true)) {
+  if (lerQTR(1) >= silverTape && lerQTR(2) >= silverTape && lerQTR(3) >= silverTape && lerQTR(4) >= silverTape && lerQTR(5) >= silverTape && lerQTR(6) >= silverTape && lerQTR(7) >= silverTape && lerQTR(8) >= silverTape) {
     return true;
   } else {
     return false;
@@ -132,7 +117,7 @@ boolean verificaBase() {
 }
 
 boolean verificaPitch1() {
-  if (pitch < -22){
+  if (pitch < -22) {
     return true;
   } else {
     return false;
@@ -140,7 +125,7 @@ boolean verificaPitch1() {
 }
 
 boolean verificaPitch2() {
-  if (pitch < -40){
+  if (pitch < -30) {
     return true;
   } else {
     return false;
@@ -148,7 +133,7 @@ boolean verificaPitch2() {
 }
 
 boolean verificaRampa() {
-  if ((verificaPitch1() == true) && (verificaPitch2() == true) && (lerSharp(5) >= 320)) {
+  if ((verificaPitch1() == true) &&  (verificaPitch2() == true) && (lerSharp(5) >= 320)) {
     return true;
   } else {
     return false;
@@ -344,11 +329,13 @@ void terceiroSalao(boolean condicao) {
                 mover(80, 90);
               }
               digitalWrite(ledDireita, HIGH);
+              delay(700);
+              digitalWrite(ledDireita, LOW);
               trasEncoder(100, 100, 100);
               frenteEncoder(100, 200, 200);
               trasEncoder(100, 100, 100);
               frenteEncoder(100, 200, 200);
-              trasEncoder(500, 90, 90);
+              trasEncoder(900, 90, 90);
               travarMotores();
               delay(1000);
               analogWrite(motorGarraCima, 180);
@@ -507,6 +494,8 @@ void terceiroSalao(boolean condicao) {
           analogWrite(motorGarraCima, 150);
         }
         analogWrite(motorGarraCima, 0);
+        delay(1000);
+        travarMotores();
         delay(1000);
         if ((p == 0) && (s == 1) && (t == 0)) {
           frenteEncoder(400, 90, 90);
@@ -734,6 +723,118 @@ void terceiroSalao(boolean condicao) {
 
         }
         if (verificaVitima() == true) {
+          if ((p == 0) && (s == 0) && (t == 1)) {
+            trasEncoder(500, 100, 100);
+            sinalizar();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            curva90GrausEsquerdaObjeto();
+            curva45GrausEsquerda();
+            mover(-90, -90);
+            delay(2000);
+            servoCacamba.write(180);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            servoCacamba.write(105);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(300, 100, 100);
+            curva45GrausDireita();
+            curva90GrausEsquerdaObjeto();
+            frenteEncoder(1800, 100, 100);
+            travarMotores();
+            delay(1000);
+            curva90GrausEsquerdaObjeto();
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(500, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            curva90GrausDireitaObjeto();
+            curva90GrausDireitaObjeto();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            mover(-90, -90);
+            delay(2000);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(400, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            curva90GrausEsquerdaObjeto();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(400, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            curva90GrausEsquerdaObjeto();
+            analogWrite(motorGarraBaixo, 150);
+            delay(2000);
+            analogWrite(motorGarraBaixo, 0);
+            while (verificaParede() == false) {
+              mover(80, 90);
+            }
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(100, 100, 100);
+            frenteEncoder(100, 200, 200);
+            trasEncoder(400, 90, 90);
+            while (lerBtnGarraParar() == 1) {
+              analogWrite(motorGarraCima, 150);
+            }
+            analogWrite(motorGarraCima, 0);
+            curva90GrausDireitaObjeto();
+            trasEncoder(2000, 100, 100);
+            curva45GrausDireita();
+            mover(-90, -90);
+            delay(2000);
+            servoCacamba.write(180);
+            travarMotores();
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            frenteEncoder(100, 100, 100);
+            trasEncoder(100, 200, 200);
+            delay(1000);
+            servoCacamba.write(105);
+            travarMotores();
+            delay(1000);
+            travarMotores();
+            delay(100000000);
+          }
           if ((p == 1) && (s == 0) && (t == 0)) {
             sinalizar();
             analogWrite(motorGarraBaixo, 150);
@@ -903,8 +1004,8 @@ void Seguidor(boolean condicao) {
           digitalWrite(ledAzul, LOW);
           digitalWrite(ledVermelho, HIGH);
           int b = 1;
-          mover(180, 220);
-          delay(900);
+          mover(180, 230);
+          delay(1000);
           b = 0;
           digitalWrite(ledVermelho, LOW);
           digitalWrite(ledAzul, HIGH);
@@ -929,7 +1030,16 @@ void Seguidor(boolean condicao) {
     Serial.println("***** PID *****");
 
     if (verificaObjeto() == true) {
-      objeto();
+      obstaculoCount++;
+      if (obstaculoCount == 1) {
+        objeto(esquerda);
+      } else if (obstaculoCount == 2) {
+        objeto(esquerda);
+      } else if (obstaculoCount == 3) {
+        objeto(esquerda);
+      } else {
+        objeto(direita);
+      }
     }
 
     if (verificaGap() == true) {

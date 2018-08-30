@@ -17,7 +17,7 @@ int btnExtra = 6;
 int btnGarraParar = 49; //Ao contrario
 //int btnRedutor = 47;
 int btnFrenteDireita = 46;
-int btnFrenteEsquerda = 42;
+int btnFrenteEsquerda = A15;
 int btnRedutor = 47;
 
 //Método para ligar os botões
@@ -196,7 +196,7 @@ int lastError = 0;
 /** Quanto o robô vê no preto e no branco (+-) **/
 int preto = 750;
 int branco = 650;
-int silverTape = 700;
+int silverTape = 550;
 int silverTape1 = 800;
 /************************************************/
 
@@ -206,6 +206,8 @@ int forcaPID = 80;
 int forcaBaixa = 70;
 int forcaRampa = 230;
 int forcaRedutor = 200;
+
+int obstaculoCount = 0;
 /*********************/
 
 /******** Estados do robô ********/
