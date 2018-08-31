@@ -53,7 +53,7 @@ int lerBtnDesafio() {
   return digitalRead(btnDesafio);
 }
 int lerBtnRampa() {
-  return digitalRead(btnDesafio);
+  return digitalRead(btnRampa);
 }
 int lerBtnExtra() {
   return digitalRead(btnExtra);

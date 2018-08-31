@@ -11,9 +11,9 @@
 /********************** BOTÕES **********************/
 //Quais portas os botões estão
 int btnSeguidor = 28; 
-int btnDesafio = 4; 
+int btnDesafio = 6; 
 int btnRampa = 5;
-int btnExtra = 6;
+int btnExtra = 4;
 int btnGarraParar = 49; //Ao contrario
 //int btnRedutor = 47;
 int btnFrenteDireita = 46;
@@ -143,9 +143,10 @@ void ligarSensorDeCor() {
 /************************ SHARP ANALÓGICO ************************/
 int sharpTrasCima = A8;
 int sharpTrasBaixo = A11;
-int sharpCacamba = A13; //Não sei
+int sharpCacamba = A13; 
 int sharpFrente = A12;
 int sharpLado = A14;
+int sharpLadoDireita = A10;
 
 
 void ligarSharps(){
@@ -154,6 +155,7 @@ void ligarSharps(){
  pinMode(sharpCacamba, INPUT);
  pinMode(sharpFrente, INPUT);
  pinMode(sharpLado, INPUT);
+ pinMode(sharpLadoDireita, INPUT);
 }
 
 int Sharp[] {
@@ -162,7 +164,8 @@ int Sharp[] {
   sharpTrasBaixo,
   sharpCacamba,
   sharpFrente,
-  sharpLado
+  sharpLado,
+  sharpLadoDireita
 };
 
 void setSharp(){
@@ -171,6 +174,7 @@ void setSharp(){
   sharpCacamba = analogRead(A5);
   sharpFrente = analogRead(A12);
   sharpLado = analogRead(A14);
+  sharpLadoDireita = digitalRead(A10);
 }
 
 /************************ VARIÁVEIS DO ROBÔ ************************/
@@ -195,7 +199,7 @@ int lastError = 0;
 
 /** Quanto o robô vê no preto e no branco (+-) **/
 int preto = 750;
-int branco = 650;
+int branco = 500;
 int silverTape = 550;
 int silverTape1 = 800;
 /************************************************/

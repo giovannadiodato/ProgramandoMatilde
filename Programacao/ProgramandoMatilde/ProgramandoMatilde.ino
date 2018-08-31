@@ -44,7 +44,7 @@ void setup() {
   /*** Todas essas funções se encontram na aba 'Actions.h' ***/
   alertaDeInicio();
   delay(500);
-  //calibrarArray();
+  calibrarArray();
 
   Wire.begin();
   TWBR = ((F_CPU / 400000L) - 16) / 2; // Set I2C frequency to 400kHz
@@ -76,28 +76,62 @@ void loop() {
   }
 
   if (lerBtnDesafio() == 1) {
-    //digitalWrite(ledVerde, HIGH);
+digitalWrite(ledAzul, HIGH);
     delay(1000);
-    terceiroSalao(true);
-    delay(300);
-    //digitalWrite(ledVerde, LOW);
+    // pararGarra(true);
+   
+  
+    digitalWrite(ledAzul, LOW);
   }
 
   if (lerBtnRampa() == 1) {
-    digitalWrite(ledVermelho, HIGH);
-    delay(1000);
-    //terceiroSalao(true);
-    delay(300);
-    digitalWrite(ledVermelho, LOW);
+    Serial.println("******************************* RAMPA *****************************");
+    analogWrite(motorGarraBaixo, 100);
+      delay(100);
+      analogWrite(motorGarraBaixo, 0);
+      digitalWrite(ledAzul, LOW);
+      digitalWrite(ledDireita, HIGH);
+      digitalWrite(ledEsquerda, HIGH);
+      while (verificaSilverTap() == false) {
+        PID(0.15, KI, 0, 200, setPoint);
+        if (verificaGap() == true) {
+          Serial.println("******************************* GAP *****************************");
+          while (verificaGap() == true) {
+            gap(salaoRampa);
+          }
+        }
+        if (verificaRedutor() == true) {
+          digitalWrite(ledAzul, LOW);
+          digitalWrite(ledVermelho, HIGH);
+          int b = 1;
+          mover(180, 230);
+          delay(1100);
+          b = 0;
+          digitalWrite(ledVermelho, LOW);
+          digitalWrite(ledAzul, HIGH);
+        } else {
+          PID(KP, KI, KD, forcaPID, setPoint);
+        }
+      }
+
+      frenteEncoder(1700, 100, 160);
+      travarMotores();
+      delay(1000);
+      digitalWrite(ledDireita, LOW);
+      digitalWrite(ledEsquerda, LOW);
+      digitalWrite(ledAzul,  HIGH);
+      while (true) {
+        terceiroSalao(true);
+      }
   }
 
 
   //Esquerda
-//    if (green_color < -800) {
-//      digitalWrite(ledDireita, HIGH);
-//    } else {
-//      digitalWrite(ledDireita, LOW);
-//    }
+  //    if (green_color < -800) {
+  //      digitalWrite(ledDireita, HIGH);
+  //    } else {
+  //      digitalWrite(ledDireita, LOW);
+  //    }
 
   //Direita
   //      if (green_color < -900) {
